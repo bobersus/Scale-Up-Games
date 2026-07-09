@@ -5,9 +5,7 @@ const path = require("path");
 
 const root = __dirname;
 const port = Number(process.env.PORT) || 3000;
-const contactWebhookUrl =
-  process.env.DISCORD_WEBHOOK_URL ||
-  "https://discord.com/api/webhooks/1524859566653706310/wXPzU4QXwOg7jM78OpENe7XlGy4nJXH3qNw28hXaclgRQrdRCNsgewlDS-7YJQsiXYfR";
+const contactWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
 const maxContactPayloadSize = 24 * 1024;
 
 const types = {
@@ -167,6 +165,11 @@ async function handleContactApi(request, response) {
   }
 
   try {
+    if (!contactWebhookUrl) {
+      sendJson(response, 500, { error: "Discord webhook is not configured" });
+      return;
+    }
+
     const payload = await readJson(request);
     const name = cleanDiscordText(payload.name, 256);
     const game = cleanDiscordText(payload.game);
