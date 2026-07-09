@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ScaleUp Games</title>
+    <meta
+      name="description"
+      content="ScaleUp Games helps Roblox developers grow with publishing, LiveOps, retention, monetization, and acquisition."
+    />
+    <link rel="icon" type="image/png" href="images/small_logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700;800;900;1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <div class="header-shell liquid">
+        <a class="brand" href="/home" aria-label="ScaleUp Games home">
+          <img class="brand-logo" src="images/logo.png" alt="" aria-hidden="true" />
+          <span class="brand-name">ScaleUp Games</span>
+        </a>
+        <button class="nav-toggle liquid" type="button" aria-label="Open navigation" data-nav-toggle>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav-pill liquid" aria-label="Main navigation" data-nav>
+          <a class="nav-link active" href="/home">Home</a>
+          <a class="nav-link" href="/about">About</a>
+          <a class="nav-link" href="/games">Games</a>
+          <a class="btn btn-small btn-primary" href="/contact">Contact Us</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero section-grid" id="home">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            <span>Your Game</span>
+            <span class="text-accent">Our Boost</span>
+            <span class="text-muted">Shared Profit</span>
+          </h1>
+          <p class="hero-copy">
+            Scale Up Games helps developers and studios grow on Roblox through game publishing,
+            LiveOps, retention optimization, monetization, and user acquisition.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/featured-games">Explore Games</a>
+            <a class="btn btn-glass liquid" href="/contact">Contact Us</a>
+          </div>
+        </div>
+
+        <div class="hero-showcase" aria-hidden="true">
+          <span class="showcase-card showcase-card-a"></span>
+          <span class="showcase-card showcase-card-b"></span>
+          <span class="showcase-card showcase-card-c"></span>
+          <span class="showcase-card showcase-card-d"></span>
+          <span class="showcase-card showcase-card-e"></span>
+        </div>
+      </section>
+
+      <section class="section meet section-grid" id="about">
+        <div class="section-heading">
+          <h2>Meet Scale Up</h2>
+          <p>We don't promise growth. We deliver it.</p>
+        </div>
+        <div class="stats-grid" aria-label="ScaleUp Games live statistics">
+          <article class="stat-card liquid">
+            <span class="stat-title">CCU</span>
+            <strong data-stat="ccu">0</strong>
+            <span class="stat-copy">Current players</span>
+          </article>
+          <article class="stat-card liquid">
+            <span class="stat-title">Visits</span>
+            <strong data-stat="visits">0</strong>
+            <span class="stat-copy">Total visits</span>
+          </article>
+          <article class="stat-card liquid">
+            <span class="stat-title">DAU</span>
+            <strong>100K+</strong>
+            <span class="stat-copy">Daily audience</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section games-section section-grid" id="games">
+        <div class="section-heading">
+          <h2>Games</h2>
+        </div>
+        <div class="games-grid" id="featuredGamesGrid" aria-live="polite"></div>
+        <div class="center-action">
+          <a class="btn btn-glass liquid" href="/games">All Games</a>
+        </div>
+      </section>
+
+      <section class="section acquisition-section section-grid" id="acquisition">
+        <div class="section-heading">
+          <h2>Game Acquisition</h2>
+          <p>
+            Ready to unlock the full potential of your Roblox creation? We offer a seamless exit
+            strategy for game developers.
+          </p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card liquid">
+            <span class="service-icon">🚀</span>
+            <h3>Roblox Publishing</h3>
+            <p>We launch traffic, test thumbnails, icons, and first-session funnels for stronger conversion.</p>
+          </article>
+          <article class="service-card liquid">
+            <span class="service-icon">🎮</span>
+            <h3>LiveOps</h3>
+            <p>Seasonal events, updates, reward loops, and content beats that keep players coming back.</p>
+          </article>
+          <article class="service-card liquid">
+            <span class="service-icon">🎯</span>
+            <h3>User Acquisition</h3>
+            <p>We scale paid and organic growth channels with creative testing and clear performance targets.</p>
+          </article>
+          <article class="service-card liquid">
+            <span class="service-icon">📈</span>
+            <h3>Retention Design</h3>
+            <p>Daily rewards, progression, quests, and early-game tuning built around player behavior.</p>
+          </article>
+          <article class="service-card liquid">
+            <span class="service-icon">💎</span>
+            <h3>Monetization</h3>
+            <p>Gamepasses, offers, limited deals, and economy updates that feel natural inside the game.</p>
+          </article>
+          <article class="service-card liquid">
+            <span class="service-icon">🧪</span>
+            <h3>Analytics & Testing</h3>
+            <p>We track weak points, run experiments, and focus production on changes that move metrics.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section contact-section section-grid" id="contact">
+        <div class="contact-panel liquid">
+          <div class="contact-copy">
+            <h2>Ready to Scale Your Game?</h2>
+            <p>
+              Whether you already have a Roblox game, a prototype, or a full studio, we'll review
+              your project and identify the best opportunities for growth.
+            </p>
+          </div>
+          <form class="contact-form" id="contactForm">
+            <input type="text" name="name" placeholder="Your Name" aria-label="Your Name" autocomplete="name" required />
+            <input
+              type="url"
+              name="game"
+              placeholder="Roblox Game Link"
+              aria-label="Roblox game link"
+              pattern="https://(www\.)?roblox\.com/.*"
+              title="Use a Roblox link that starts with https://www.roblox.com or https://roblox.com"
+            />
+            <input type="text" name="discord" placeholder="Your Discord tag" aria-label="Your Discord tag" autocomplete="off" required />
+            <textarea
+              name="message"
+              placeholder="Tell us about your game and current metrics"
+              aria-label="Tell us about your game and current metrics"
+            ></textarea>
+            <button class="btn btn-primary btn-submit" type="submit">Send Request</button>
+            <p class="form-status" data-form-status aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="brand footer-logo" href="/home" aria-label="ScaleUp Games home">
+            <img class="brand-logo" src="images/logo.png" alt="" aria-hidden="true" />
+          </a>
+          <p>We scale Roblox games.</p>
+        </div>
+        <div class="footer-column">
+          <h3>Company</h3>
+          <a href="/games">Games</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+        <div class="footer-column">
+          <h3>Socials</h3>
+          <a href="https://discord.gg/dEJZVVCbnQ" target="_blank" rel="noreferrer">Discord</a>
+        </div>
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span data-year></span> ScaleUp Games</span>
+      </div>
+    </footer>
+
+    <script src="games-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

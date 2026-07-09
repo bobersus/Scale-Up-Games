@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy Policy | ScaleUp Games</title>
+    <meta name="description" content="ScaleUp Games privacy policy." />
+    <link rel="icon" type="image/png" href="images/small_logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700;800;900;1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="policy-page">
+    <header class="site-header" data-header>
+      <div class="header-shell liquid">
+        <a class="brand" href="/home" aria-label="ScaleUp Games home">
+          <img class="brand-logo" src="images/logo.png" alt="" aria-hidden="true" />
+          <span class="brand-name">ScaleUp Games</span>
+        </a>
+        <button class="nav-toggle liquid" type="button" aria-label="Open navigation" data-nav-toggle>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav-pill liquid" aria-label="Main navigation" data-nav>
+          <a class="nav-link" href="/home">Home</a>
+          <a class="nav-link" href="/about">About</a>
+          <a class="nav-link" href="/games">Games</a>
+          <a class="btn btn-small btn-primary" href="/contact">Contact Us</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="policy-main">
+      <section class="policy-shell section-grid">
+        <div class="section-heading">
+          <h1>Privacy Policy</h1>
+        </div>
+        <iframe
+          class="policy-frame liquid"
+          title="ScaleUp Games Privacy Policy"
+          data-policy-frame
+          src="about:blank"
+        ></iframe>
+        <p class="policy-fallback" data-policy-fallback hidden>
+          Privacy Policy could not be opened in the browser.
+          <a href="scaleup_privacy_policy.pdf" target="_blank" rel="noopener">Open PDF</a>
+        </p>
+      </section>
+    </main>
+
+    <script>
+      (async () => {
+        const frame = document.querySelector("[data-policy-frame]");
+        const fallback = document.querySelector("[data-policy-fallback]");
+
+        try {
+          const response = await fetch("scaleup_privacy_policy.pdf", { cache: "no-store" });
+
+          if (!response.ok) {
+            throw new Error("Unable to load policy PDF");
+          }
+
+          const buffer = await response.arrayBuffer();
+          const blob = new Blob([buffer], { type: "application/pdf" });
+          frame.src = URL.createObjectURL(blob);
+        } catch (error) {
+          frame.src = "scaleup_privacy_policy.pdf";
+          fallback.hidden = false;
+        }
+      })();
+    </script>
+    <script src="app.js"></script>
+  </body>
+</html>
