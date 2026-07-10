@@ -44,4 +44,8 @@ window.SCALEUP_GAMES = [
     universeId: "9937957650",
     placeId: "75713247211976"
   },
+  { // 🔦99 Nights In The Forest Tycoon - 2 Player
+    universeId: "7854857396",
+    placeId: "121169372802280"
+  },
 ];
