@@ -36,38 +36,4 @@ window.SCALEUP_GAMES = [
     universeId: "10007992431",
     placeId: "80343124049008"
   },
-
-  // УДАЛИТЬ
-  {
-    universeId: "6035872082",
-    placeId: "17625359962"
-  },
-  {
-    universeId: "10200395747",
-    placeId: "97598239454123"
-  },
-  {
-    universeId: "7709344486",
-    placeId: "109983668079237"
-  },
-  {
-    universeId: "5750914919",
-    placeId: "16732694052"
-  },
-  {
-    universeId: "7436755782",
-    placeId: "126884695634066"
-  },
-  {
-    universeId: "994732206",
-    placeId: "2753915549"
-  },
-  {
-    universeId: "10148749921",
-    placeId: "78515283254292"
-  },
-  {
-    universeId: "9584852943",
-    placeId: "95082159892680"
-  },
 ];
