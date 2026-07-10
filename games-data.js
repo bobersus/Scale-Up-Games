@@ -36,4 +36,8 @@ window.SCALEUP_GAMES = [
     universeId: "10007992431",
     placeId: "80343124049008"
   },
+  { // Capture a Brainrot
+    universeId: "9999629110",
+    placeId: "102309657376267"
+  },
 ];
