@@ -4,23 +4,23 @@
   "rewrites": [
     {
       "source": "/home",
-      "destination": "/index.html"
+      "destination": "/"
     },
     {
       "source": "/about",
-      "destination": "/index.html"
+      "destination": "/"
     },
     {
       "source": "/featured-games",
-      "destination": "/index.html"
+      "destination": "/"
     },
     {
       "source": "/acquisition",
-      "destination": "/index.html"
+      "destination": "/"
     },
     {
       "source": "/contact",
-      "destination": "/index.html"
+      "destination": "/"
     },
     {
       "source": "/games",
