@@ -40,4 +40,8 @@ window.SCALEUP_GAMES = [
     universeId: "9999629110",
     placeId: "102309657376267"
   },
+  { // Be a Lucky Block for Soccer Legends ⚽
+    universeId: "9937957650",
+    placeId: "75713247211976"
+  },
 ];
