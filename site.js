@@ -3,7 +3,8 @@
   const state = {
     gamesByUniverse: new Map(),
     thumbsByUniverse: new Map(),
-    hasAnimatedCounts: false
+    hasAnimatedCounts: false,
+    hasRegisteredGameRise: false
   };
   const CONTACT_ENDPOINT = "/api/contact";
 
@@ -272,6 +273,48 @@
     });
   }
 
+  function setupScrollRise() {
+    const elements = Array.from(document.querySelectorAll([
+      ".section-heading",
+      ".stat-card",
+      ".game-card",
+      ".service-card",
+      ".contact-panel",
+      ".center-action",
+      ".site-footer .footer-inner",
+      ".site-footer .footer-bottom"
+    ].join(","))).filter((element) => !element.dataset.scrollRiseReady);
+
+    if (!elements.length) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    elements.forEach((element, index) => {
+      element.dataset.scrollRiseReady = "true";
+      element.classList.add("scroll-rise");
+      element.style.setProperty("--scroll-rise-delay", `${Math.min(index % 6, 5) * 70}ms`);
+    });
+
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      elements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, {
+      threshold: 0.16,
+      rootMargin: "0px 0px -8% 0px"
+    });
+
+    elements.forEach((element) => observer.observe(element));
+  }
+
   function formatNumber(value) {
     const number = Number(value);
     if (!Number.isFinite(number)) return "0";
@@ -359,31 +402,43 @@
     return `placeholder-${(index % 6) + 1}`;
   }
 
-  function createGameCard(game, index) {
+  function createGameCard(game, index, revealInstantly = false) {
     const url = gameUrl(game);
-    const title = getGameTitle(game);
+    const liveGame = getLiveGame(game);
+    const hasLiveId = Boolean(String(game.universeId || "").trim());
+    const isLoading = hasLiveId && !liveGame;
+    const title = isLoading ? "" : getGameTitle(game);
     const ccu = getGameCcu(game);
     const visits = getGameVisits(game);
     const thumb = getGameThumb(game);
-    const hasLiveId = Boolean(String(game.universeId || "").trim());
 
     const card = document.createElement(url === "#" ? "article" : "a");
-    card.className = "game-card liquid";
+    card.className = `game-card liquid${isLoading ? " is-loading" : ""}`;
+    card.setAttribute("aria-busy", isLoading ? "true" : "false");
     if (url !== "#") {
       card.href = url;
       card.target = "_blank";
       card.rel = "noreferrer";
     }
     card.dataset.universeId = String(game.universeId || "");
+    if (revealInstantly) {
+      card.dataset.scrollRiseReady = "true";
+      card.classList.add("scroll-rise", "is-visible");
+    }
 
     const media = document.createElement("div");
-    media.className = `game-media ${thumb ? "" : placeholderClass(index)}`;
+    media.className = `game-media ${thumb || isLoading ? "" : placeholderClass(index)}`;
 
     if (thumb) {
       const image = document.createElement("img");
       image.src = thumb;
       image.alt = title;
       media.appendChild(image);
+    } else if (isLoading) {
+      const loader = document.createElement("span");
+      loader.className = "game-loading-mark";
+      loader.textContent = "Loading";
+      media.appendChild(loader);
     } else {
       const placeholder = document.createElement("span");
       placeholder.textContent = "ScaleUp";
@@ -397,21 +452,33 @@
     content.className = "game-content";
 
     const heading = document.createElement("h3");
-    heading.textContent = title;
+    if (isLoading) {
+      heading.className = "loading-line loading-title";
+      heading.setAttribute("aria-label", "Loading game");
+    } else {
+      heading.textContent = title;
+    }
 
     const meta = document.createElement("div");
     meta.className = "game-metrics";
-    meta.innerHTML = `
-      <span class="metric-pill">
-        <span class="player-dot"></span>
-        <span data-card-ccu ${hasLiveId ? `data-count-value="${ccu}"` : ""}>${hasLiveId && state.hasAnimatedCounts ? formatNumber(ccu) : hasLiveId ? "0" : "Add ID"}</span>
-        <span>CCU</span>
-      </span>
-      <span class="metric-pill">
-        <span ${hasLiveId ? `data-count-value="${visits}"` : ""}>${hasLiveId && state.hasAnimatedCounts ? formatNumber(visits) : hasLiveId ? "0" : "Add ID"}</span>
-        <span>Visits</span>
-      </span>
-    `;
+    if (isLoading) {
+      meta.innerHTML = `
+        <span class="metric-pill loading-pill"></span>
+        <span class="metric-pill loading-pill"></span>
+      `;
+    } else {
+      meta.innerHTML = `
+        <span class="metric-pill">
+          <span class="player-dot"></span>
+          <span data-card-ccu ${hasLiveId ? `data-count-value="${ccu}"` : ""}>${hasLiveId && state.hasAnimatedCounts ? formatNumber(ccu) : hasLiveId ? "0" : "Add ID"}</span>
+          <span>CCU</span>
+        </span>
+        <span class="metric-pill">
+          <span ${hasLiveId ? `data-count-value="${visits}"` : ""}>${hasLiveId && state.hasAnimatedCounts ? formatNumber(visits) : hasLiveId ? "0" : "Add ID"}</span>
+          <span>Visits</span>
+        </span>
+      `;
+    }
 
     content.append(heading, meta);
     card.append(media, fade, content);
@@ -420,9 +487,13 @@
 
   function renderGameGrid(target, list) {
     if (!target) return;
+    const revealInstantly = state.hasRegisteredGameRise && Array.from(target.children).some((child) => {
+      return child.classList?.contains("is-visible");
+    });
+
     target.replaceChildren();
     list.forEach((game, index) => {
-      target.appendChild(createGameCard(game, index));
+      target.appendChild(createGameCard(game, index, revealInstantly));
     });
   }
 
@@ -483,6 +554,8 @@
     renderGameGrid(document.getElementById("featuredGamesGrid"), sortedGames.slice(0, 6));
     renderGameGrid(document.getElementById("allGamesGrid"), sortedGames);
     setupLiquidHighlights();
+    setupScrollRise();
+    state.hasRegisteredGameRise = true;
     updateStats();
     if (state.gamesByUniverse.size) {
       animateCountsOnce();
@@ -573,6 +646,8 @@
     renderGameGrid(document.getElementById("featuredGamesGrid"), sortedGames.slice(0, 6));
     renderGameGrid(document.getElementById("allGamesGrid"), sortedGames);
     setupLiquidHighlights();
+    setupScrollRise();
+    state.hasRegisteredGameRise = true;
     setupContactForm();
     updateStats();
     refreshRobloxData();
