@@ -52,4 +52,8 @@ window.SCALEUP_GAMES = [
     universeId: "7854857396",
     placeId: "121169372802280"
   },
+  { // +1 DMG Per Click 💥
+    universeId: "10159730818",
+    placeId: "107639229741136"
+  },
 ];
