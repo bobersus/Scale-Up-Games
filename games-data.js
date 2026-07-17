@@ -56,4 +56,8 @@ window.SCALEUP_GAMES = [
     universeId: "10159730818",
     placeId: "107639229741136"
   },
+  { // +1 Brick Per Click 🧱
+    universeId: "10434802548",
+    placeId: "78630559566233"
+  },
 ];
