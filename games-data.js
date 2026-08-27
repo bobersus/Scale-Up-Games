@@ -60,7 +60,7 @@ window.SCALEUP_GAMES = [
     universeId: "10572250766",
     placeId: "131903820070868"
   },
-  { // eat the baseplate
+  { // Jump for Forsaken!
     universeId: "9777772521",
     placeId: "91975522860736"
   },
