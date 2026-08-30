@@ -64,4 +64,8 @@ window.SCALEUP_GAMES = [
     universeId: "9777772521",
     placeId: "91975522860736"
   },
+  { // Lucky Brawlers
+    universeId: "10414835165",
+    placeId: "109096888950069"
+  },
 ];
