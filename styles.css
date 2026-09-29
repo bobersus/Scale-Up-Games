@@ -877,7 +877,7 @@ section[id] {
   margin-top: 0;
   color: var(--stats-accent);
   font-size: clamp(2.5rem, 5.3vw, 4.6rem);
-  letter-spacing: -0.055em;
+  letter-spacing: 0;
   line-height: 1;
   font-weight: 1000;
   text-shadow: 0 0 25px rgba(165, 206, 120, 0.04);
