@@ -1,4 +1,39 @@
 (function () {
+  const heroVideo = document.querySelector("[data-hero-video]");
+  if (heroVideo) {
+    const desktopVideo = window.matchMedia("(min-width: 1025px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
+    let heroVisible = true;
+    const updateHeroVideo = () => {
+      if (!desktopVideo.matches) {
+        heroVideo.pause();
+        heroVideo.classList.remove("is-playing");
+        if (heroVideo.hasAttribute("src")) {
+          heroVideo.removeAttribute("src");
+          heroVideo.load();
+        }
+        return;
+      }
+      if (document.hidden || !heroVisible) {
+        heroVideo.pause();
+        return;
+      }
+      heroVideo.muted = true;
+      if (!heroVideo.hasAttribute("src")) heroVideo.src = heroVideo.dataset.src;
+      heroVideo.play().catch(() => {});
+    };
+    heroVideo.addEventListener("playing", () => heroVideo.classList.add("is-playing"));
+    desktopVideo.addEventListener("change", updateHeroVideo);
+    document.addEventListener("visibilitychange", updateHeroVideo);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([entry]) => {
+        heroVisible = entry.isIntersecting;
+        updateHeroVideo();
+      }).observe(heroVideo.parentElement);
+    } else {
+      updateHeroVideo();
+    }
+  }
+
   const games = Array.isArray(window.SCALEUP_GAMES) ? window.SCALEUP_GAMES : [];
   const state = {
     gamesByUniverse: new Map(),
@@ -281,8 +316,7 @@
       ".service-card",
       ".contact-panel",
       ".center-action",
-      ".site-footer .footer-inner",
-      ".site-footer .footer-bottom"
+      ".site-footer .footer-inner"
     ].join(","))).filter((element) => !element.dataset.scrollRiseReady);
 
     if (!elements.length) return;
